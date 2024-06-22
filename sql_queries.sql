@@ -86,3 +86,70 @@ FROM orders o JOIN order_items oi
 WHERE o.order_status IN ('COMPLETE', 'CLOSED')
     AND date_format(order_date, 'yyyy-MM') = '2014-01'
 LIMIT 10
+
+--Joining Tables - Outer
+
+
+SELECT o.order_id,
+    o.order_date,
+    o.order_status,
+    oi.order_item_order_id,
+    oi.order_item_subtotal
+FROM orders o LEFT OUTER JOIN order_items oi
+    ON o.order_id = oi.order_item_order_id
+LIMIT 10
+
+
+SELECT count(1)
+FROM orders o LEFT OUTER JOIN order_items oi
+    ON o.order_id = oi.order_item_order_id
+
+SELECT o.order_id,
+    o.order_date,
+    o.order_status,
+    oi.order_item_order_id,
+    oi.order_item_subtotal
+FROM orders o LEFT OUTER JOIN order_items oi
+    ON o.order_id = oi.order_item_order_id
+WHERE oi.order_item_order_id IS NULL
+LIMIT 10
+
+
+SELECT count(1)
+FROM orders o LEFT OUTER JOIN order_items oi
+    ON o.order_id = oi.order_item_order_id
+WHERE oi.order_item_order_id IS NULL
+
+
+SELECT count(1)
+FROM orders o LEFT OUTER JOIN order_items oi
+    ON o.order_id = oi.order_item_order_id
+WHERE oi.order_item_order_id IS NULL
+    AND o.order_status IN ('COMPLETE', 'CLOSED')
+
+
+SELECT o.order_id,
+    o.order_date,
+    o.order_status,
+    oi.order_item_order_id,
+    oi.order_item_subtotal
+FROM orders o RIGHT OUTER JOIN order_items oi
+    ON o.order_id = oi.order_item_order_id
+LIMIT 10
+
+
+
+SELECT count(1)
+FROM orders o RIGHT OUTER JOIN order_items oi
+    ON o.order_id = oi.order_item_order_id
+
+
+SELECT o.order_id,
+    o.order_date,
+    o.order_status,
+    oi.order_item_order_id,
+    oi.order_item_subtotal
+FROM orders o RIGHT OUTER JOIN order_items oi
+    ON o.order_id = oi.order_item_order_id
+WHERE o.order_id IS NULL
+LIMIT 10
